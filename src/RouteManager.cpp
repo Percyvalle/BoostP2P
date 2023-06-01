@@ -1,8 +1,8 @@
 #include "RouteManager.hpp"
 
-Network::RouteManager::RouteManager(std::string _address, int _port, std::string _password, std::string _namedb, std::string _accaunt) 
-	: m_addressdb(_address), m_port(_port), m_passwordb(_password), m_namedb(_namedb), m_accauntdb(_accaunt), 
-	  m_connectdb(pqxx::connection{ "postgresql://" + _accaunt + "@" + _address + ":" + std::to_string(_port) + "/" + _namedb })
+Network::RouteManager::RouteManager(std::string _address, int _port, std::string _password, std::string _namedb, std::string _usernamedb) 
+	: m_addressdb(_address), m_port(_port), m_passwordb(_password), m_namedb(_namedb), m_usernamedb(_usernamedb),
+	  m_connectdb(pqxx::connection{ "postgresql://" + _usernamedb + "@" + _address + ":" + std::to_string(_port) + "/" + _namedb })
 {
 }
 

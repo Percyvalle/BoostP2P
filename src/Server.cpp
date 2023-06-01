@@ -1,14 +1,20 @@
 #include "Server.hpp"
 
-Network::Server::Server() : m_acserver(m_server, m_epserver = tcp::endpoint(tcp::v4(), m_port)) {}
+Network::Server::Server() : m_acserver(m_server, m_epserver = tcp::endpoint(tcp::v4(), m_port)),
+							m_routemanager(ADDRESS_DB, PORT_DB, "None", NAME_DB, USERNAME_DB) {}
 
-Network::Server::Server(int _port) : m_acserver(m_server, m_epserver = tcp::endpoint(tcp::v4(), m_port = _port)) {}
+Network::Server::Server(int _port) : m_acserver(m_server, m_epserver = tcp::endpoint(tcp::v4(), m_port = _port)),
+									 m_routemanager(ADDRESS_DB, PORT_DB, "None", NAME_DB, USERNAME_DB) {}
 
 Network::Server::Server(std::string _address, int _port) 
-	: m_acserver(m_server, m_epserver = tcp::endpoint(boost::asio::ip::address::from_string(_address), m_port = _port)) {}
+	: m_acserver(m_server, m_epserver = tcp::endpoint(boost::asio::ip::address::from_string(_address), m_port = _port)),
+	  m_routemanager(ADDRESS_DB, PORT_DB, "None", NAME_DB, USERNAME_DB) {}
 
 void Network::Server::start()
 {
+	spdlog::info("Server registration {0}:{1}", m_epserver.address().to_string(), m_port);
+	m_routemanager.registrationRoute(m_epserver.address().to_string(), m_port);
+
 	spdlog::info("Accepting to server {0}:{1}", m_epserver.address().to_string(), m_port);
 	accepting();
 

@@ -10,9 +10,15 @@
 
 #include <spdlog/spdlog.h>
 
+#include "RouteManager.hpp"
 
 #define DEFAULT_LENGTH 1024
 #define DEFAULT_PORT 8050
+
+#define ADDRESS_DB "127.0.0.1"
+#define PORT_DB 5432
+#define NAME_DB "postgres"
+#define USERNAME_DB "postgres"
 
 namespace Network {
 	using namespace boost::asio;
@@ -42,6 +48,8 @@ namespace Network {
 		io_service m_server;
 		tcp::endpoint m_epserver;
 		tcp::acceptor m_acserver;
+
+		RouteManager m_routemanager;
 	public:
 		Server();
 		Server(int);

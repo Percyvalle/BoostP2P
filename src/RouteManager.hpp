@@ -10,15 +10,13 @@ namespace Network {
 		std::string m_addressdb;
 		std::string m_passwordb;
 		std::string m_namedb;
-		std::string m_accauntdb;
+		std::string m_usernamedb;
 
 		pqxx::connection m_connectdb;
 	public:
 		RouteManager() = default;
-		~RouteManager() = default;
-
 		RouteManager(std::string, int, std::string, std::string, std::string);
-		
+		~RouteManager() = default;
 
 		void registrationRoute(std::string, int);
 		void writeoffRoute(std::string, int);
