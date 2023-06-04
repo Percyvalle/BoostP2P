@@ -24,3 +24,21 @@ void Network::RouteManager::writeoffRoute(std::string _address_client, int _port
 
 	worker.commit();
 }
+
+boost::json::array Network::RouteManager::getAvailableAddress()
+{
+	pqxx::work worker{m_connectdb};
+
+	pqxx::result result_address{worker.exec("SELECT ip, port FROM blockchain_route")};
+
+	boost::json::array route_list;
+
+	for (auto row : result_address) {
+		boost::json::object tmp;
+		tmp.emplace("ip", row["ip"].c_str());
+		tmp.emplace("port", row["port"].c_str());
+		route_list.push_back(tmp);
+	}
+
+	return route_list;
+}

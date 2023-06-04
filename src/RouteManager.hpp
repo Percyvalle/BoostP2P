@@ -1,5 +1,7 @@
 #pragma once
 
+#include <spdlog/spdlog.h>
+#include <boost/json.hpp>
 #include <pqxx/pqxx>
 #include <string>
 
@@ -20,6 +22,7 @@ namespace Network {
 
 		void registrationRoute(std::string, int);
 		void writeoffRoute(std::string, int);
-
+		
+		boost::json::array getAvailableAddress();
 	};
 }

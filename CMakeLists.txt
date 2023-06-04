@@ -11,10 +11,13 @@ find_package(Boost 1.82.0)
 find_package(spdlog REQUIRED)
 find_package(libpqxx REQUIRED)
 
+
 include_directories(${BOOST_INCLUDE_DIR} ${spdlog_INCLUDE_DIR} ${libpqxx_INCLUDE_DIR})
+link_directories(${BOOST_LIBRARY_DIR})
+	
 add_executable (ServerP2P "main.cpp" 
-				"src/Server.hpp" "src/Server.cpp"
-				"src/Client.hpp" "src/Client.cpp" 
-				"src/RouteManager.hpp" "src/RouteManager.cpp")
+					"src/Server.hpp" "src/Server.cpp"
+					"src/Client.hpp" "src/Client.cpp" 
+					"src/RouteManager.hpp" "src/RouteManager.cpp")
 
 target_link_libraries(ServerP2P PRIVATE ${BOOST_LIBRARIES} spdlog::spdlog libpqxx::pqxx)
